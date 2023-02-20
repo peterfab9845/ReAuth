@@ -34,10 +34,10 @@ public final class EventHandler {
         Screen screen = event.getScreen();
         if (screen instanceof JoinMultiplayerScreen) {
             // Add Button to MultiplayerScreen
-            event.addListener(new Button(5, 5, 100, 20, Component.translatable("reauth.gui.button"), b -> openAuthenticationScreen()));
+            event.addListener(new Button.Builder(Component.translatable("reauth.gui.button"), b -> openAuthenticationScreen()).bounds(5, 5, 100, 20).build());
         } else if (screen instanceof TitleScreen) {
             // Support for Custom Main Menu (add button outside of viewport)
-            event.addListener(new Button(-50, -50, 20, 20, Component.translatable("reauth.gui.button"), b -> openAuthenticationScreen()));
+            event.addListener(new Button.Builder(Component.translatable("reauth.gui.button"), b -> openAuthenticationScreen()).bounds(-50, -50, 20, 20).build());
         } else if (screen instanceof DisconnectedScreen) {
             // Add Buttons to DisconnectedScreen if its reason is an invalid session
             handleDisconnectScreen(event, screen);
@@ -59,7 +59,7 @@ public final class EventHandler {
                 } else {
                     retryText = Component.translatable("reauth.retry.disabled");
                 }
-                Button retryButton = new Button(menu.x, menu.y + 25, 200, 20, retryText, b -> ReconnectHelper.retryLogin(profile));
+                Button retryButton = new Button.Builder(retryText, b -> ReconnectHelper.retryLogin(profile)).bounds(menu.getX(), menu.getY() + 25, 200, 20).build();
                 if (profile == null || !ReconnectHelper.hasConnectionInfo()) {
                     retryButton.active = false;
                 }

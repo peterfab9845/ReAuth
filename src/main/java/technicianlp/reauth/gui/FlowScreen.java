@@ -55,7 +55,7 @@ public final class FlowScreen extends AbstractScreen implements FlowCallback {
         if (this.stage == FlowStage.MS_AWAIT_AUTH_CODE && this.flow instanceof AuthorizationCodeFlow) {
             try {
                 URL url = new URL(((AuthorizationCodeFlow) this.flow).getLoginUrl());
-                this.addRenderableWidget(new Button(this.centerX - buttonWidthH, this.baseY + this.screenHeight - 42, buttonWidth, 20, Component.translatable("reauth.msauth.button.browser"), (b) -> Util.getPlatform().openUrl((url))));
+                this.addRenderableWidget(new Button.Builder(Component.translatable("reauth.msauth.button.browser"), (b) -> Util.getPlatform().openUrl((url))).bounds(this.centerX - buttonWidthH, this.baseY + this.screenHeight - 42, buttonWidth, 20).build());
             } catch (MalformedURLException e) {
                 ReAuth.log.error("Browser button failed", e);
             }
@@ -66,7 +66,7 @@ public final class FlowScreen extends AbstractScreen implements FlowCallback {
                     String urlString = flow.getLoginUrl().join();
                     String code = flow.getCode().join();
                     URL url = new URL(urlString);
-                    this.addRenderableWidget(new Button(this.centerX - buttonWidthH, this.baseY + this.screenHeight - 42, buttonWidth, 20, Component.translatable("reauth.msauth.button.browser"), (b) -> Util.getPlatform().openUrl((url))));
+                    this.addRenderableWidget(new Button.Builder(Component.translatable("reauth.msauth.button.browser"), (b) -> Util.getPlatform().openUrl((url))).bounds(this.centerX - buttonWidthH, this.baseY + this.screenHeight - 42, buttonWidth, 20).build());
                     this.formatArgs = new String[]{urlString, code};
                 }
             } catch (MalformedURLException e) {

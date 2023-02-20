@@ -33,14 +33,13 @@ abstract class AbstractScreen extends Screen {
     @Override
     public void init() {
         super.init();
-        this.getMinecraft().keyboardHandler.setSendRepeatsToGui(true);
 
         this.centerX = this.width / 2;
         this.baseX = this.centerX - this.screenWidth / 2;
         this.centerY = this.height / 2;
         this.baseY = this.centerY - this.screenHeight / 2;
 
-        Button cancel = new Button(this.centerX + this.screenWidth / 2 - 22, this.baseY + 2, 20, 20, Component.translatable("reauth.gui.close"), (b) -> this.onClose());
+        Button cancel = new Button.Builder(Component.translatable("reauth.gui.close"), (b) -> this.onClose()).bounds(this.centerX + this.screenWidth / 2 - 22, this.baseY + 2, 20, 20).build();
         this.addRenderableWidget(cancel);
     }
 
@@ -85,14 +84,5 @@ abstract class AbstractScreen extends Screen {
     @Override
     public final void onClose() {
         this.requestClose(false);
-    }
-
-    /**
-     * Called once this Screen is closed
-     */
-    @Override
-    public void removed() {
-        super.removed();
-        this.getMinecraft().keyboardHandler.setSendRepeatsToGui(false);
     }
 }

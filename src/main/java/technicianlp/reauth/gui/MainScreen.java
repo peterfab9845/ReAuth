@@ -35,17 +35,17 @@ public final class MainScreen extends AbstractScreen {
         Profile profile = ReAuth.profiles.getProfile();
         if (profile != null) {
             Component text = Component.translatable("reauth.gui.profile", profile.getValue(ProfileConstants.NAME, "Steve"));
-            this.addRenderableWidget(new Button(this.centerX - buttonWidthH, y + 10, BUTTON_WIDTH, 20, text, (b) -> FlowScreen.open(Flows::loginWithProfile, profile, false)));
+            this.addRenderableWidget(new Button.Builder(text, (b) -> FlowScreen.open(Flows::loginWithProfile, profile, false)).bounds(this.centerX - buttonWidthH, y + 10, BUTTON_WIDTH, 20).build());
         } else {
-            Button profileButton = new Button(this.centerX - buttonWidthH, y + 10, BUTTON_WIDTH, 20, Component.translatable("reauth.gui.noProfile"), (b) -> {
-            });
+            Button profileButton = new Button.Builder(Component.translatable("reauth.gui.noProfile"), (b) -> {
+            }).bounds(this.centerX - buttonWidthH, y + 10, BUTTON_WIDTH, 20).build();
             profileButton.active = false;
             this.addRenderableWidget(profileButton);
         }
 
-        this.addRenderableWidget(new Button(this.centerX - buttonWidthH, y + 45, buttonWidthH - 1, 20, Component.translatable("reauth.gui.button.authcode"), (b) -> FlowScreen.open(Flows::loginWithAuthCode, saveButton.selected(), false)));
-        this.addRenderableWidget(new Button(this.centerX + 1, y + 45, buttonWidthH - 1, 20, Component.translatable("reauth.gui.button.devicecode"), (b) -> FlowScreen.open(Flows::loginWithDeviceCode, saveButton.selected(), false)));
-        this.addRenderableWidget(new Button(this.centerX - buttonWidthH, y + 105, BUTTON_WIDTH, 20, Component.translatable("reauth.gui.button.offline"), (b) -> this.transitionScreen(new OfflineLoginScreen())));
+        this.addRenderableWidget(new Button.Builder(Component.translatable("reauth.gui.button.authcode"), (b) -> FlowScreen.open(Flows::loginWithAuthCode, saveButton.selected(), false)).bounds(this.centerX - buttonWidthH, y + 45, buttonWidthH - 1, 20).build());
+        this.addRenderableWidget(new Button.Builder(Component.translatable("reauth.gui.button.devicecode"), (b) -> FlowScreen.open(Flows::loginWithDeviceCode, saveButton.selected(), false)).bounds(this.centerX + 1, y + 45, buttonWidthH - 1, 20).build());
+        this.addRenderableWidget(new Button.Builder(Component.translatable("reauth.gui.button.offline"), (b) -> this.transitionScreen(new OfflineLoginScreen())).bounds(-50, -50, 20, 20).build());
 
 
         VersionChecker.CheckResult result = VersionChecker.getResult(ReAuth.modInfo);
